@@ -4,7 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "studio": "prisma studio",
+    "migrate": "prisma migrate dev",
+    "generate": "prisma generate"
   },
   "dependencies": {
     "@fastify/cors": "^8.1.1",
