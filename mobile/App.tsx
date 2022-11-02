@@ -1,8 +1,12 @@
 import { NativeBaseProvider, StatusBar } from 'native-base'
 
 import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto'
+
 import { Loader } from './src/components/Loader'
+
 import { SignIn } from './src/screens/SignIn'
+
+import { AuthContextProvider } from './src/contexts/AuthContext'
 
 export default function App() {
 	const [isLoadedFonts] = useFonts({
@@ -13,17 +17,19 @@ export default function App() {
 
 	return (
 		<NativeBaseProvider>
-			<StatusBar
-				barStyle="light-content" 
-				backgroundColor="transparent"
-				translucent
-			/>
+			<AuthContextProvider>
+				<StatusBar
+					barStyle="light-content" 
+					backgroundColor="transparent"
+					translucent
+				/>
 
-			{isLoadedFonts ? (
-				<SignIn />
-			) : (
-				<Loader />
-			)}
+				{isLoadedFonts ? (
+					<SignIn />
+				) : (
+					<Loader />
+				)}
+			</AuthContextProvider>
 		</NativeBaseProvider>
 	)
 }

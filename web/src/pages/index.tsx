@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react'
-import { GetServerSideProps, GetStaticProps } from 'next'
+import { GetStaticProps } from 'next'
 import toast from 'react-hot-toast'
 import Image from 'next/image'
 
