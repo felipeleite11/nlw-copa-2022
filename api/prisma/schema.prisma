@@ -35,12 +35,11 @@ model Participant {
 }
 
 model User {
-  id            String   @id @default(cuid())
-  name          String
-  email         String   @unique
-  avatarURL     String?
-  participantId String
-  createdAt     DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  avatarURL String?
+  createdAt DateTime @default(now())
 
   participatingAt Participant[]
   ownPool         Pool[]
