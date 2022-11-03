@@ -1,4 +1,9 @@
-import { createContext, ReactNode } from "react"
+import { createContext, ReactNode, useState, useEffect } from 'react'
+import * as WebBrowser from 'expo-web-browser'
+import * as Google from 'expo-auth-session/providers/google'
+import * as AuthSession from 'expo-auth-session'
+
+WebBrowser.maybeCompleteAuthSession()
 
 export interface UserProps {
 	name: string
@@ -8,6 +13,7 @@ export interface UserProps {
 export interface AuthContextProps {
 	user: UserProps
 	signIn: () => Promise<void>
+	isUserLoading: boolean
 }
 
 interface AuthContextProviderProps {
@@ -17,17 +23,44 @@ interface AuthContextProviderProps {
 export const AuthContext = createContext({} as AuthContextProps)
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
+	const [request, response, promptAsync] = Google.useAuthRequest({
+		clientId: '271245854306-7vte1460hmb1k39anu9dp17tgm10ntjl.apps.googleusercontent.com',
+		redirectUri: AuthSession.makeRedirectUri({ useProxy: true }),
+		scopes: ['profile', 'email']
+	})
+
+	const [isUserLoading, setIsUserLoading] = useState(false)
+	const [user, setUser] = useState<UserProps>({} as UserProps)
+
 	async function signIn() {
-		console.log('LOGIN...')
+		try {
+			setIsUserLoading(true)
+
+			await promptAsync()
+		} catch(e) {
+			console.log(e)
+
+			throw e
+		} finally {
+			setIsUserLoading(false)
+		}
 	}
+
+	async function signInWithGoogle(access_token: string) {
+		console.log('TOKEN', access_token)
+	}
+
+	useEffect(() => {
+		if(response?.type === 'success' && response.authentication?.accessToken) {
+			signInWithGoogle(response.authentication.accessToken)
+		}
+	}, [response])
 
 	return (
 		<AuthContext.Provider value={{
-			user: {
-				name: 'Felipe Leite',
-				avatarURL: 'https://github.com/felipeleite11.png'
-			},
-			signIn
+			user,
+			signIn,
+			isUserLoading
 		}}>
 			{children}
 		</AuthContext.Provider>
