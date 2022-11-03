@@ -9,7 +9,7 @@ export function Button({ title, type = 'PRIMARY', ...props }: ButtonProps) {
 	return (
 		<NativeButton 
 			w="full"
-			h={'12'}
+			h={12}
 			rounded="sm"
 			fontSize="md"
 			bg={type === 'PRIMARY' ? 'yellow.500' : 'red.500'}
