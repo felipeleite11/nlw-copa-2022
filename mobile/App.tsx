@@ -4,12 +4,8 @@ import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@
 
 import { Loader } from './src/components/Loader'
 
-import { SignIn } from './src/screens/SignIn'
-import { New } from './src/screens/New'
-import { Find } from './src/screens/Find'
-import { Polls } from './src/screens/Polls'
-
 import { AuthContextProvider } from './src/contexts/AuthContext'
+import { Routes } from './src/routes'
 
 export default function App() {
 	const [isLoadedFonts] = useFonts({
@@ -27,11 +23,7 @@ export default function App() {
 					translucent
 				/>
 
-				{isLoadedFonts ? (
-					<SignIn />
-				) : (
-					<Loader />
-				)}
+				{isLoadedFonts ? <Routes /> : <Loader /> }
 			</AuthContextProvider>
 		</NativeBaseProvider>
 	)
