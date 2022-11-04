@@ -1,12 +1,10 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
-import { PrismaClient } from '@prisma/client'
-import { z } from 'zod'
-import ShortUniqueId from 'short-unique-id'
 
-const prisma = new PrismaClient({
-	log: ['query']
-})
+import { pollRoutes } from './routes/poll'
+import { userRoutes } from './routes/user'
+import { guessRoutes } from './routes/guess'
+import { gameRoutes } from './routes/game'
 
 async function bootstrap() {
 	const fastify = Fastify({
@@ -17,53 +15,13 @@ async function bootstrap() {
 		origin: true
 	})
 
-	fastify.get('/polls/count', async () => {
-		const pollsCount = await prisma.poll.count()
-
-		return { count: pollsCount  }
-	})
-
-	fastify.post('/polls', async (request, reply) => {
-		try {
-			const createPoolBody = z.object({
-				title: z.string({
-					required_error: 'O bolão deve ter um nome.',
-					invalid_type_error: 'O bolão deve ter um nome.'
-				}).min(1, {
-					message: 'O bolão deve ter um nome.'
-				})
-			})
-
-			const { title } = createPoolBody.parse(request.body)
-
-			const uniqueIdGenerate = new ShortUniqueId({ length: 6 })
-
-			const code = String(uniqueIdGenerate()).toUpperCase()
-
-			await prisma.poll.create({
-				data: {
-					title,
-					code
-				}
-			})
-
-			return reply.status(201).send(code)
-		} catch(e) {
-			return (e as Error).message
-		}
-	})
-
-	fastify.get('/users/count', async () => {
-		const usersCount = await prisma.user.count()
-
-		return { count: usersCount }
-	})
-
-	fastify.get('/guesses/count', async () => {
-		const guessesCount = await prisma.guess.count()
-
-		return { count: guessesCount }
-	})
+	fastify.register(pollRoutes)
+	
+	fastify.register(userRoutes)
+	
+	fastify.register(guessRoutes)
+	
+	fastify.register(gameRoutes)
 
 	await fastify.listen({ port: 3333, host: '0.0.0.0' })
 }
