@@ -7,7 +7,7 @@ import { Loader } from './src/components/Loader'
 import { SignIn } from './src/screens/SignIn'
 import { New } from './src/screens/New'
 import { Find } from './src/screens/Find'
-import { Pools } from './src/screens/Pools'
+import { Polls } from './src/screens/Polls'
 
 import { AuthContextProvider } from './src/contexts/AuthContext'
 
@@ -28,7 +28,7 @@ export default function App() {
 				/>
 
 				{isLoadedFonts ? (
-					<Pools />
+					<Polls />
 				) : (
 					<Loader />
 				)}

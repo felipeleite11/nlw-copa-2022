@@ -1,11 +1,11 @@
-import { Heading, VStack, Icon } from 'native-base'
+import { VStack, Icon } from 'native-base'
 import { Octicons } from '@expo/vector-icons'
 
 import { Header } from '../components/Header'
 import { Button } from '../components/Button'
 
 
-export function Pools() {
+export function Polls() {
 	return (
 		<VStack flex={1} bgColor="gray.900">
 			<Header title="Meus bolões" />
