@@ -9,11 +9,11 @@ import { Button } from '../components/Button'
 
 import { api } from '../services/api'
 
-import { PollCard, PollCardProps } from '../components/PollCard'
+import { PollCard, PollProps } from '../components/PollCard'
 import { EmptyPollList } from '../components/EmptyPollList'
 
 export function Polls() {
-	const [polls, setPolls] = useState<PollCardProps[]>([])
+	const [polls, setPolls] = useState<PollProps[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 
 	const { navigate } = useNavigation()
@@ -24,7 +24,7 @@ export function Polls() {
 		try {
 			setIsLoading(true)
 
-			const { data } = await api.get<{ polls: PollCardProps[] }>('polls')
+			const { data } = await api.get<{ polls: PollProps[] }>('polls')
 
 			setPolls(data.polls)
 		} catch(e) {
@@ -65,7 +65,10 @@ export function Polls() {
 					data={polls}
 					keyExtractor={item => item.id}
 					renderItem={({ item }) => (
-						<PollCard data={item} />
+						<PollCard 
+							data={item} 
+							onPress={() => navigate('details', { id: item.id })}
+						/>
 					)}
 					px={5}
 					showsVerticalScrollIndicator={false}

@@ -8,9 +8,12 @@ import { api } from '../services/api'
 import { Header } from '../components/Header'
 import { Input } from '../components/Input'
 import { Button } from '../components/Button'
+import { useNavigation } from '@react-navigation/native'
 
 export function New() {
 	const toast = useToast()
+
+	const { navigate } = useNavigation()
 
 	const [pollTitle, setPollTitle] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
@@ -38,6 +41,8 @@ export function New() {
 			})
 			
 			setPollTitle('')
+
+			navigate('polls')
 		} catch(e) {
 			console.log(e)
 
