@@ -4,7 +4,7 @@ export interface ParticipantProps {
   id: string;
   user: {
     name: string;
-    avatarUrl: string;
+    avatarURL: string;
   };
 };
 
@@ -20,7 +20,7 @@ export function Participants({participants, count }: Props) {
         participants && participants.map((participant) => (
           <Avatar
             key={participant.id}
-            source={{ uri: participant.user.avatarUrl}}
+            source={{ uri: participant.user.avatarURL}}
             w={8}
             h={8}
             rounded="full"
@@ -34,7 +34,7 @@ export function Participants({participants, count }: Props) {
       }
 
       <Center w={8} h={8} bgColor="gray.700" rounded="full" borderWidth={1} borderColor="gray.800">
-        <Text color="gray.100" fontSize="xs" fontFamily="medium">
+        <Text color="gray.100" fontSize="xs" fontFamily="heading" fontWeight="medium">
           {count ? `+${count}` : 0}
         </Text>
       </Center>
