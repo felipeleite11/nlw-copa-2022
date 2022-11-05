@@ -5,7 +5,7 @@ interface Props {
   code: string;
 }
 
-export function EmptyMyPollList({ code }: Props) {
+export function EmptyMyGuessList({ code }: Props) {
   async function handleShare() {
     await Share.share({
       message: code
@@ -15,7 +15,7 @@ export function EmptyMyPollList({ code }: Props) {
   return (
     <Row flexWrap="wrap" justifyContent="center" p={4}>
       <Text color="gray.200" fontSize="sm">
-        Esse bolão ainda não tem participantes. Que tal 
+        Esse bolão ainda não tem palpites. Que tal 
       </Text>
 
       <Pressable onPress={handleShare}>

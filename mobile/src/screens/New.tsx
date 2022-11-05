@@ -1,4 +1,4 @@
-import { Heading, Text, VStack, useToast, ScrollView } from 'native-base'
+import { Heading, Text, VStack, useToast, ScrollView, Box } from 'native-base'
 import { useState } from 'react'
 
 import Logo from '../assets/logo.svg'
@@ -61,7 +61,9 @@ export function New() {
 			<Header title="Criar novo bolão" />
 
 			<ScrollView mt={8} mx={5}>
-				<Logo />
+				<Box alignItems="center">
+					<Logo />
+				</Box>
 
 				<Heading fontFamily="heading" color="white" fontSize="xl" my={8} textAlign="center">
 					Crie seu próprio bolão da copa{'\n'}e compartilhe entre amigos!

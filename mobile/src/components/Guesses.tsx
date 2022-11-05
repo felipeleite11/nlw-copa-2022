@@ -5,12 +5,14 @@ import { GameProps, Game } from './Game';
 import { Loader } from './Loader';
 
 import { api } from '../services/api';
+import { EmptyMyGuessList } from './EmptyMyGuessList';
 
 interface Props {
   pollId: string;
+  code: string
 }
 
-export function Guesses({ pollId }: Props) {
+export function Guesses({ pollId, code }: Props) {
   const toast = useToast()
 
   const [games, setGames] = useState<GameProps[]>([])
@@ -97,6 +99,7 @@ export function Guesses({ pollId }: Props) {
           onGuessConfirm={handleGuessConfirm}
         />
       )}
+      ListEmptyComponent={<EmptyMyGuessList code={code} />}
     />
   )
 }
